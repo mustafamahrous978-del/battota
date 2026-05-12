@@ -1,0 +1,492 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBD to the Best Sister! ✨</title>
+    <!-- استيراد خطوط جوجل لجمال النص -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- المتغيرات والتنسيق الأساسي --- */
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #c9184a;
+            --bg-gradient: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
+            --glass: rgba(255, 255, 255, 0.15);
+            --border: rgba(255, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* لمنع شريط التمرير أثناء الانيميشن */
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        /* انيميشن تحرك الخلفية */
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* --- شاشة تسجيل الدخول العصرية --- */
+        #login-screen {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 25px;
+            border: 1px solid var(--border);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: 100;
+            width: 90%;
+            max-width: 400px;
+            transition: all 0.5s ease;
+            animation: slideInDown 0.8s ease-out;
+        }
+
+            #login-screen h2 {
+                color: #fff;
+                margin-bottom: 25px;
+                font-weight: 900;
+                font-size: 1.8rem;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            }
+
+        input {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+            input::placeholder {
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            input:focus {
+                background: rgba(255, 255, 255, 0.3);
+                border-color: #fff;
+            }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+        }
+
+            button:hover {
+                background: var(--secondary);
+                transform: translateY(-3px);
+            }
+
+            button:active {
+                transform: translateY(-1px);
+            }
+
+        #error-msg {
+            color: #fff;
+            background: rgba(255,0,0,0.3);
+            padding: 5px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        /* --- محتوى المفاجأة الرئيسي (مخفي) --- */
+        #surprise-content {
+            display: none;
+            width: 90%;
+            max-width: 1000px;
+            z-index: 10;
+            opacity: 0;
+            overflow-y: auto; /* السماح بالتمرير للمحتوى الطويل */
+            max-height: 90vh;
+            padding: 20px;
+        }
+
+        /* رأس الصفحة */
+        .header {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-in 0.5s forwards;
+            opacity: 0;
+        }
+
+            .header h1 {
+                font-weight: 900;
+                font-size: 3rem;
+                text-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            }
+
+            .header .age-badge {
+                display: inline-block;
+                background: #fff;
+                color: var(--primary);
+                padding: 5px 25px;
+                border-radius: 50px;
+                font-size: 2.5rem;
+                font-weight: 900;
+                margin: 10px 0;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+
+        /* تأثير الكتابة الآلية */
+        .typewriter {
+            font-size: 1.2rem;
+            overflow: hidden; /* يضمن عدم ظهور النص قبل الكتابة */
+            border-left: 2px solid #fff; /* المؤشر */
+            white-space: nowrap; /* يبقي النص في سطر واحد */
+            margin: 0 auto;
+            width: 0; /* يبدأ بعرض صفر */
+            animation: typing 2s steps(40, end) 1.5s forwards, blink-caret 0.75s step-end infinite;
+        }
+
+        /* --- معرض الصور الشبكي (Modren Grid) --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+            animation: slideInUp 1s ease-out 2s forwards;
+            opacity: 0;
+        }
+
+        .photo-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1; /* صور مربعة */
+            border: 4px solid #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+            .photo-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: 0.5s ease;
+            }
+
+            /* تأثيرات التحويم (Hover) على الصور */
+            .photo-item:hover {
+                transform: scale(1.05) rotate(2deg);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+                border-color: var(--primary);
+            }
+
+                .photo-item:hover img {
+                    transform: scale(1.1);
+                    filter: brightness(1.1);
+                }
+
+        /* تراكيب توضيحية على الصورة عند الهوفر */
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            padding: 15px;
+            color: #fff;
+            opacity: 0;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .photo-item:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        /* ذبذبات القلوب خلف المحتوى */
+        #hearts-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- Keyframes defined --- */
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+            from, to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #fff
+            }
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) translateX(20px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* للموبايل */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header .age-badge {
+                font-size: 1.8rem;
+            }
+
+            .typewriter {
+                font-size: 1rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- حاوية التأثيرات الخلفية (القلوب/القصاصات) -->
+    <div id="hearts-container"></div>
+
+    <!-- شاشة تسجيل الدخول -->
+    <div id="login-screen">
+        <h2>🔐 كله  بالحب❤️</h2>
+        <p style="color: #fff; font-size:0.9rem; margin-bottom:10px">❤️❤️❤️</p>
+        <input type="text" id="username" placeholder="اسمك">
+        <input type="password" id="password" placeholder="كم عمرك اليوم؟">
+        <button onclick="checkLogin()">افتحي الهدية 🎁</button>
+        <p id="error-msg">البيانات غلط.. متأكدة انك اختي"؟ 🤔</p>
+    </div>
+
+    <!-- محتوى المفاجأة الرئيسي -->
+    <div id="surprise-content">
+        <div class="header">
+            <h1>عيد ميلاد سعيد يا ست البنات! ❤️</h1>
+            <div class="age-badge">21</div>
+            <!-- النص هنا سيكتب تلقائياً -->
+            <div class="typewriter-container" style="display: flex; justify-content: center;">
+                <p class="typewriter">كل سنة وأنتِ أجمل وأنجح وأسعد أخت في الدنيا  ويارب دايما يوفقك واشوفك ناجحة دايما ويخليكي لينا يارب ❤️❤️❤️.</p>
+            </div>
+        </div>
+
+        <!-- معرض الصور - اضفت لك اماكن لـ 6 صور -->
+        <div class="gallery-grid">
+            <div class="photo-item">
+                <img src="https://scontent.fcai19-11.fna.fbcdn.net/v/t39.30808-6/698373683_1303786848567297_4533405230232902796_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEEzoVrB0ScoMs-31vXMyW53lRAkOPXQ23eVECQ49dDbY0m0sb_Q9hpf48efLdDnzQcQItOUXqbURkDvKs-cERR&_nc_ohc=tTATda5a39UQ7kNvwEN65Da&_nc_oc=Adp2zRFSXLjj0sUxqba4zU5TJ1S9pBRjvFSKGnylV9fz_SoS6NNTAJGm6PVNBxobKzg&_nc_zt=23&_nc_ht=scontent.fcai19-11.fna&_nc_gid=PqLGR38kKXKyvXNwlyazqQ&_nc_ss=7b2a8&oh=00_Af5K6xQr4m-TN-ovHweGu1DJGrI-XoLrQhh6qvttVjN8sQ&oe=6A0912DE" alt="ذكريات 1">
+                <div class="photo-overlay">أحلى أوقات 🥰</div>
+            </div>
+            <div class="photo-item">
+                <img src="https://scontent.fcai19-11.fna.fbcdn.net/v/t39.30808-6/698179788_1303786958567286_1683455678799623148_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGaUTIjB6A1p4M6f5VoytO3BrgIyljd4-oGuAjKWN3j6sEu-6NgWCzmOk_aOZv-RRBko-Efu4GNzfMGfXZDGKDW&_nc_ohc=5lxqB70VAjsQ7kNvwEtIMYe&_nc_oc=AdqHoAJDvtYfhgvumgr9K5AHy0FZx4xtTwJzTGLfeYiVBHKfPm2g-ZZypekYFkt7zA8&_nc_zt=23&_nc_ht=scontent.fcai19-11.fna&_nc_gid=3jYRfzBuE4b82kPzHKmY9A&_nc_ss=7b2a8&oh=00_Af4iFoNOzijg8qIn-_4Nv7hK3DvIkTVZd6LkTvRyOYIDgw&oe=6A0900F9" alt="ذكريات 2">
+                <div class="photo-overlay">ضحكتك منورة 🌟</div>
+            </div>
+            <div class="photo-item">
+                <img src="https://scontent.fcai19-11.fna.fbcdn.net/v/t39.30808-6/693703018_1303786988567283_2972072743885965236_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGbBFnnc_CxzRCtD1zLEaQ6cfrjuXiiOpVx-uO5eKI6lc7wnqaebQgK4FiTHbXvd9uZVZbGdVZnC2nWJ6701nME&_nc_ohc=_P8-eFwNu3wQ7kNvwHoWCfK&_nc_oc=AdpkgTbCtGVtoXZWNJtPlKgoADpfUcdyiTEghmRvt0Ri_-geyhFbg1QNJE1l4gj2siY&_nc_zt=23&_nc_ht=scontent.fcai19-11.fna&_nc_gid=wekhQ3-9QimVS27LpRYnBQ&_nc_ss=7b2a8&oh=00_Af5IE5-iPO9m9lqhlxti91WFY2J9SeIElk_qD3nnvK4alg&oe=6A090BA4" alt="ذكريات 3">
+                <div class="photo-overlay">يخليكِ لينا ❤️</div>
+            </div>
+            <div class="photo-item">
+                <img src="https://scontent.fcai19-11.fna.fbcdn.net/v/t39.30808-6/695945116_1303786885233960_6523198273591392608_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeGJxG8rLKFStD_uI5Z5INiXRKC-kL3uU75EoL6Qve5Tvu18alacJK64gMKBoiSI39o6vCROu_P8xcAxvTqYlxfY&_nc_ohc=3OAW8MHUnuEQ7kNvwHjMh9p&_nc_oc=Adp_aTjNQZ4722Jch-D9RsQxKCbUT8aLEoQGuthvxV6cCPHY_Yew5pd73uikt2q-Abk&_nc_zt=23&_nc_ht=scontent.fcai19-11.fna&_nc_gid=UdDnW2NSwG31x6L-BFVD8w&_nc_ss=7b2a8&oh=00_Af4ZtEy3kkMdZ94QhG2qYAYeD5yKfbI6tV5Uz9Oj8O3gfA&oe=6A090587" alt="ذكريات 4">
+                <div class="photo-overlay">عقبال 100 سنة 🎂</div>
+            </div>
+            <div class="photo-item">
+                <img src="https://scontent.fcai19-11.fna.fbcdn.net/v/t39.30808-6/695945066_1303786905233958_8094098191494507662_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeHOHRef3h4UE50DSljNQg9EwTYg7_G-i4XBNiDv8b6LhXkBZS4e-yYpdU7E4wgmPTEnMyA-dJFAxfFYehUI3sOI&_nc_ohc=bKP6TGzN6m4Q7kNvwHLFERX&_nc_oc=Adou-8-_BjJly89WdjNYFf0nD6XEE7NUp1Sh4l5_VOrnDMOX8-8aS8ursyHGTAs_LR8&_nc_zt=23&_nc_ht=scontent.fcai19-11.fna&_nc_gid=wQ6JOJhxLJv8_fut98fhAg&_nc_ss=7b2a8&oh=00_Af7CDDwBfzUx4nsyhOMnGwT5cMHdg9JgSt98PJ6y1ienSg&oe=6A090310" alt="ذكريات 5">
+                <div class="photo-overlay">أجمل خطوة 👠</div>
+            </div>
+            <div class="photo-item">
+                <img src="https://scontent.fcai19-11.fna.fbcdn.net/v/t39.30808-6/698381773_1303786808567301_6340021235385874874_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeF8YxgRFBWHTKUi4seH8JJ5djFeDoB0m9N2MV4OgHSb01yyl3zFlkAyseobRDlWvXGzLB56tXUi4_zYZIBudaxt&_nc_ohc=7XDnb2ZD_-sQ7kNvwHcaaQw&_nc_oc=AdrPySXSnAjL5lKyW4IPpBqDz547n3tQ7bm9eb1KDnj1cYLiqC39Z9e00trM34j70-U&_nc_zt=23&_nc_ht=scontent.fcai19-11.fna&_nc_gid=sU7IbXtAj_sMl4TA2bJiQQ&_nc_ss=7b2a8&oh=00_Af7Xyz3lCMInlGQQQTn-T3mgOaPIMI0FBXegdbLS4YfPCw&oe=6A0922E3" alt="ذكريات 6">
+                <div class="photo-overlay">Sweet 21 ✨</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: white; animation: fadeIn 1s ease-in 3s forwards; opacity:0;">
+            <p style="font-size: 1.5rem; font-weight: bold;">اليوم نولع الدنيا شمع! 🔥🎂🍾</p>
+            <p style="margin-top: 10px;">بحبك جدا❤️💕</p>
+        </div>
+    </div>
+
+    <script>
+        // دالة التحقق
+        function checkLogin() {
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('error-msg');
+            const loginScreen = document.getElementById('login-screen');
+            const mainContent = document.getElementById('surprise-content');
+
+            // لاحظ: جعلت التحقق من الاسم يقبل "مصطفى" أو "Mustafa" لسهولة الاستخدام
+            if ((user.toLowerCase() === "بطوطة" || user === "مصطفى") && pass === "2005") {
+
+                // أنيميشن خروج شاشة الدخول
+                loginScreen.style.opacity = '0';
+                loginScreen.style.transform = 'scale(0.8) translateY(50px)';
+
+                setTimeout(() => {
+                    loginScreen.style.display = 'none';
+                    // إظهار المحتوى الرئيسي
+                    mainContent.style.display = 'block';
+                    // السماح بالتمرير للجسم
+                    document.body.style.overflowY = 'auto';
+
+                    // بدء الانيميشن
+                    setTimeout(() => mainContent.style.opacity = '1', 50);
+
+                    // تشغيل القصاصات والقلوب
+                    startCelebration();
+                }, 500);
+
+            } else {
+                errorMsg.style.display = 'block';
+                // هز الشاشة عند الخطأ (تأثير بسيط)
+                loginScreen.style.animation = 'none';
+                void loginScreen.offsetWidth; // Trigger reflow
+                loginScreen.style.animation = 'shake 0.5s';
+            }
+        }
+
+        // إضافة تأثير الهز عند الخطأ للـ CSS
+        const style = document.createElement('style');
+        style.innerHTML = `
+                        @keyframes shake {
+                            0%, 100% { transform: translateX(0); }
+                            20%, 60% { transform: translateX(-10px); }
+                            40%, 80% { transform: translateX(10px); }
+                        }
+                    `;
+        document.head.appendChild(style);
+
+
+        // --- نظام الاحتفال (قلوب وقصاصات ورقية) ---
+        function createParticle(symbol, isConfetti = false) {
+            const container = document.getElementById('hearts-container');
+            const particle = document.createElement('div');
+
+            particle.innerHTML = symbol;
+            particle.style.position = 'fixed';
+            particle.style.top = '-5vh';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.userSelect = 'none';
+
+            if (isConfetti) {
+                // قصاصات ملونة
+                const colors = ['#fff', '#ff4d6d', '#ffb3c1', '#fad0c4', '#ffff3f'];
+                particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            } else {
+                // قلوب حمراء
+                particle.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            }
+
+            particle.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+
+            container.appendChild(particle);
+
+            // حذف العنصر بعد انتهاء الانيميشن
+            setTimeout(() => {
+                particle.remove();
+            }, 5000);
+        }
+
+        function startCelebration() {
+            // المطر الأولي من القصاصات (كثيف في البداية)
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createParticle('🎉', true), i * 50);
+                setTimeout(() => createParticle('▪️', true), i * 60); // قطع صغيرة
+            }
+
+            // مطر مستمر من القصاصات والقلوب
+            setInterval(() => createParticle('❤️', false), 300);
+            setInterval(() => createParticle('🎉', true), 500);
+            setInterval(() => createParticle('✨', true), 700);
+        }
+    </script>
+</body>
+</html>
